@@ -16,10 +16,11 @@ var (
 )
 
 // @title Promptpay QR Services
-// @version 1.0
+// @version 0.1
 // @description This is a sample promtpay QR generator in GO
 // @contact.name Kawin Viriyaprasopsook
 // @contact.email kawin.vir@zercle.tech
+// @contact.url https://github.com/zercle/promtpay-qr-services
 // @license.name MIT License
 // @license.url https://opensource.org/licenses/MIT
 // @host localhost:8080

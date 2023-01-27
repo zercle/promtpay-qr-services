@@ -3,6 +3,7 @@ package qrpayment
 import (
 	"errors"
 	"net/http"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	helpers "github.com/zercle/gofiber-helpers"
@@ -47,25 +48,41 @@ func (h *QrPaymentHandler) billpaymentQr(c *fiber.Ctx) (err error) {
 		return
 	}
 
-	resp.Result, err = h.QrPaymentUsecase.BillpaymentQr(req)
+	result, imageQr, err := h.QrPaymentUsecase.BillpaymentQr(req)
 
 	if err == nil {
+		if needImage, _ := strconv.ParseBool(c.Query("image", "false")); needImage {
+			c.Set("Content-Type", "image/png")
+			return c.Send(imageQr)
+		}
 		resp.Success = true
 		respCode = http.StatusOK
-
 	}
+
+	resp.Result = result
+
 	return c.Status(respCode).JSON(resp)
 }
 
-// @Param request formData models.QrRequest true "transaction detail"
-// @Success 200 {object} helpers.ResponseForm
+// @Accept application/x-www-form-urlencoded
+// @Param request query models.QrRequest true "transaction detail"
+// @Param image query bool false "response by QR image"
+// @Produce application/json
+// @Produce image/png
+// @Success 200 {object} helpers.ResponseForm{result=models.QrResponse}
+// @Success 200 {file} image/png
 // @Router /api/v1/qr/billpayment [get]
 func (h *QrPaymentHandler) GetBillpaymentQr() fiber.Handler {
 	return h.billpaymentQr
 }
 
+// @Accept application/json
 // @Param request body models.QrRequest true "transaction detail"
-// @Success 200 {object} helpers.ResponseForm
+// @Param image query bool false "response by QR image"
+// @Produce application/json
+// @Produce image/png
+// @Success 200 {object} helpers.ResponseForm{result=models.QrResponse}
+// @Success 200 {file} image/png
 // @Router /api/v1/qr/billpayment [post]
 func (h *QrPaymentHandler) PostBillpaymentQr() fiber.Handler {
 	return h.billpaymentQr
@@ -86,25 +103,37 @@ func (h *QrPaymentHandler) qr30(c *fiber.Ctx) (err error) {
 		return
 	}
 
-	resp.Result, err = h.QrPaymentUsecase.Qr30(req)
+	result, imageQr, err := h.QrPaymentUsecase.Qr30(req)
 
 	if err == nil {
+		if needImage, _ := strconv.ParseBool(c.Query("image", "false")); needImage {
+			c.Set("Content-Type", "image/png")
+			return c.Send(imageQr)
+		}
 		resp.Success = true
 		respCode = http.StatusOK
-
 	}
+
+	resp.Result = result
+
 	return c.Status(respCode).JSON(resp)
 }
 
-// @Param request formData models.QrRequest true "transaction detail"
-// @Success 200 {object} helpers.ResponseForm
+// @Accept application/x-www-form-urlencoded
+// @Param request query models.QrRequest true "transaction detail"
+// @Param image query bool false "response by QR image"
+// @Success 200 {object} helpers.ResponseForm{result=models.QrResponse}
+// @Success 200 {file} image/png
 // @Router /api/v1/qr/qr30 [get]
 func (h *QrPaymentHandler) GetQr30() fiber.Handler {
 	return h.qr30
 }
 
+// @Accept application/json
 // @Param request body models.QrRequest true "transaction detail"
-// @Success 200 {object} helpers.ResponseForm
+// @Param image query bool false "response by QR image"
+// @Success 200 {object} helpers.ResponseForm{result=models.QrResponse}
+// @Success 200 {file} image/png
 // @Router /api/v1/qr/qr30 [post]
 func (h *QrPaymentHandler) PostQr30() fiber.Handler {
 	return h.qr30
@@ -125,25 +154,37 @@ func (h *QrPaymentHandler) qrCs(c *fiber.Ctx) (err error) {
 		return
 	}
 
-	resp.Result, err = h.QrPaymentUsecase.QrCs(req)
+	result, imageQr, err := h.QrPaymentUsecase.QrCs(req)
 
 	if err == nil {
+		if needImage, _ := strconv.ParseBool(c.Query("image", "false")); needImage {
+			c.Set("Content-Type", "image/png")
+			return c.Send(imageQr)
+		}
 		resp.Success = true
 		respCode = http.StatusOK
-
 	}
+
+	resp.Result = result
+
 	return c.Status(respCode).JSON(resp)
 }
 
-// @Param request formData models.QrRequest true "transaction detail"
-// @Success 200 {object} helpers.ResponseForm
+// @Accept application/x-www-form-urlencoded
+// @Param request query models.QrRequest true "transaction detail"
+// @Param image query bool false "response by QR image"
+// @Success 200 {object} helpers.ResponseForm{result=models.QrResponse}
+// @Success 200 {file} image/png
 // @Router /api/v1/qr/qrcs [get]
 func (h *QrPaymentHandler) GetQrCs() fiber.Handler {
 	return h.qrCs
 }
 
+// @Accept application/json
 // @Param request body models.QrRequest true "transaction detail"
-// @Success 200 {object} helpers.ResponseForm
+// @Param image query bool false "response by QR image"
+// @Success 200 {object} helpers.ResponseForm{result=models.QrResponse}
+// @Success 200 {file} image/png
 // @Router /api/v1/qr/qrcs [post]
 func (h *QrPaymentHandler) PostQrCs() fiber.Handler {
 	return h.qrCs
@@ -164,25 +205,37 @@ func (h *QrPaymentHandler) myPromptQr(c *fiber.Ctx) (err error) {
 		return
 	}
 
-	resp.Result, err = h.QrPaymentUsecase.MyPromptQr(req)
+	result, imageQr, err := h.QrPaymentUsecase.MyPromptQr(req)
 
 	if err == nil {
+		if needImage, _ := strconv.ParseBool(c.Query("image", "false")); needImage {
+			c.Set("Content-Type", "image/png")
+			return c.Send(imageQr)
+		}
 		resp.Success = true
 		respCode = http.StatusOK
-
 	}
+
+	resp.Result = result
+
 	return c.Status(respCode).JSON(resp)
 }
 
-// @Param get_request formData models.QrRequest true "transaction detail"
-// @Success 200 {object} helpers.ResponseForm
+// @Accept application/x-www-form-urlencoded
+// @Param get_request query models.QrRequest true "transaction detail"
+// @Param image query bool false "response by QR image"
+// @Success 200 {object} helpers.ResponseForm{result=models.QrResponse}
+// @Success 200 {file} image/png
 // @Router /api/v1/qr/mypromptqr [get]
 func (h *QrPaymentHandler) GetMyPromptQr() fiber.Handler {
 	return h.myPromptQr
 }
 
+// @Accept application/json
 // @Param post_request body models.QrRequest true "transaction detail"
-// @Success 200 {object} helpers.ResponseForm
+// @Param image query bool false "response by QR image"
+// @Success 200 {object} helpers.ResponseForm{result=models.QrResponse}
+// @Success 200 {file} image/png
 // @Router /api/v1/qr/mypromptqr [post]
 func (h *QrPaymentHandler) PostMyPromptQr() fiber.Handler {
 	return h.myPromptQr

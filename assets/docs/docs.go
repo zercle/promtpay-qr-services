@@ -11,6 +11,7 @@ const docTemplate = `{
         "title": "{{.Title}}",
         "contact": {
             "name": "Kawin Viriyaprasopsook",
+            "url": "https://github.com/zercle/promtpay-qr-services",
             "email": "kawin.vir@zercle.tech"
         },
         "license": {
@@ -24,63 +25,100 @@ const docTemplate = `{
     "paths": {
         "/api/v1/qr/billpayment": {
             "get": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json",
+                    "image/png"
+                ],
                 "parameters": [
                     {
+                        "maximum": 99999999999.99,
+                        "minimum": 0,
                         "type": "number",
                         "name": "amount",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "invoice",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "merchan_name",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "enum": [
+                            "static",
+                            "dynamic"
+                        ],
                         "type": "string",
                         "name": "qr_type",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref1",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref2",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref3",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 2,
                         "type": "string",
                         "name": "suffix",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 13,
+                        "minLength": 10,
                         "type": "string",
                         "name": "tax_id",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "response by QR image",
+                        "name": "image",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/helpers.ResponseForm"
+                            "type": "file"
                         }
                     }
                 }
             },
             "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json",
+                    "image/png"
+                ],
                 "parameters": [
                     {
                         "description": "transaction detail",
@@ -90,13 +128,19 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.QrRequest"
                         }
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "response by QR image",
+                        "name": "image",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/helpers.ResponseForm"
+                            "type": "file"
                         }
                     }
                 }
@@ -104,63 +148,92 @@ const docTemplate = `{
         },
         "/api/v1/qr/mypromptqr": {
             "get": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
                 "parameters": [
                     {
+                        "maximum": 99999999999.99,
+                        "minimum": 0,
                         "type": "number",
                         "name": "amount",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "invoice",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "merchan_name",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "enum": [
+                            "static",
+                            "dynamic"
+                        ],
                         "type": "string",
                         "name": "qr_type",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref1",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref2",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref3",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 2,
                         "type": "string",
                         "name": "suffix",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 13,
+                        "minLength": 10,
                         "type": "string",
                         "name": "tax_id",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "response by QR image",
+                        "name": "image",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/helpers.ResponseForm"
+                            "type": "file"
                         }
                     }
                 }
             },
             "post": {
+                "consumes": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
                         "description": "transaction detail",
@@ -170,13 +243,19 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.QrRequest"
                         }
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "response by QR image",
+                        "name": "image",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/helpers.ResponseForm"
+                            "type": "file"
                         }
                     }
                 }
@@ -184,63 +263,92 @@ const docTemplate = `{
         },
         "/api/v1/qr/qr30": {
             "get": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
                 "parameters": [
                     {
+                        "maximum": 99999999999.99,
+                        "minimum": 0,
                         "type": "number",
                         "name": "amount",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "invoice",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "merchan_name",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "enum": [
+                            "static",
+                            "dynamic"
+                        ],
                         "type": "string",
                         "name": "qr_type",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref1",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref2",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref3",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 2,
                         "type": "string",
                         "name": "suffix",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 13,
+                        "minLength": 10,
                         "type": "string",
                         "name": "tax_id",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "response by QR image",
+                        "name": "image",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/helpers.ResponseForm"
+                            "type": "file"
                         }
                     }
                 }
             },
             "post": {
+                "consumes": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
                         "description": "transaction detail",
@@ -250,13 +358,19 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.QrRequest"
                         }
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "response by QR image",
+                        "name": "image",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/helpers.ResponseForm"
+                            "type": "file"
                         }
                     }
                 }
@@ -264,63 +378,92 @@ const docTemplate = `{
         },
         "/api/v1/qr/qrcs": {
             "get": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
                 "parameters": [
                     {
+                        "maximum": 99999999999.99,
+                        "minimum": 0,
                         "type": "number",
                         "name": "amount",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "invoice",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "merchan_name",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "enum": [
+                            "static",
+                            "dynamic"
+                        ],
                         "type": "string",
                         "name": "qr_type",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref1",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref2",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 20,
                         "type": "string",
                         "name": "ref3",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 2,
                         "type": "string",
                         "name": "suffix",
-                        "in": "formData"
+                        "in": "query"
                     },
                     {
+                        "maxLength": 13,
+                        "minLength": 10,
                         "type": "string",
                         "name": "tax_id",
-                        "in": "formData"
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "response by QR image",
+                        "name": "image",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/helpers.ResponseForm"
+                            "type": "file"
                         }
                     }
                 }
             },
             "post": {
+                "consumes": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
                         "description": "transaction detail",
@@ -330,13 +473,19 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.QrRequest"
                         }
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "response by QR image",
+                        "name": "image",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/helpers.ResponseForm"
+                            "type": "file"
                         }
                     }
                 }
@@ -402,9 +551,66 @@ const docTemplate = `{
         },
         "models.QrRequest": {
             "type": "object",
+            "required": [
+                "amount",
+                "ref1",
+                "tax_id"
+            ],
+            "properties": {
+                "amount": {
+                    "type": "number",
+                    "maximum": 99999999999.99,
+                    "minimum": 0
+                },
+                "invoice": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "merchan_name": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "qr_type": {
+                    "type": "string",
+                    "enum": [
+                        "static",
+                        "dynamic"
+                    ]
+                },
+                "ref1": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "ref2": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "ref3": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "suffix": {
+                    "type": "string",
+                    "maxLength": 2
+                },
+                "tax_id": {
+                    "type": "string",
+                    "maxLength": 13,
+                    "minLength": 10
+                }
+            }
+        },
+        "models.QrResponse": {
+            "type": "object",
             "properties": {
                 "amount": {
                     "type": "number"
+                },
+                "data": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
                 },
                 "invoice": {
                     "type": "string"
@@ -413,7 +619,11 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "qr_type": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "static",
+                        "dynamic"
+                    ]
                 },
                 "ref1": {
                     "type": "string"
@@ -437,7 +647,7 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.0",
+	Version:          "0.1",
 	Host:             "localhost:8080",
 	BasePath:         "/",
 	Schemes:          []string{},
