@@ -47,7 +47,6 @@ COPY --from=builder /usr/src/app/app-dist /app/
 COPY config /app/config
 COPY build/docker/ /app/
 COPY assets /app/assets
-COPY web /app/web
 COPY internal/assets /app/internal/assets
 RUN ln -sf /app/app-dist /usr/local/bin/app && chmod +x /app/docker-entrypoint.sh
 

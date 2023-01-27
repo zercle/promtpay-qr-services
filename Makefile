@@ -8,12 +8,12 @@ go-build:
 
 docker-build:
 	docker build -f ./build/Dockerfile.local \
-	-t zercle/gofiber-skeleton:latest \
+	-t zercle/promtpay-qr-services:latest \
 	--pull \
 	.
 
 docker-save:
-	docker save zercle/gofiber-skeleton | gzip > dist/zercle-gofiber-skeleton.tar.gz
+	docker save zercle/promtpay-qr-services | gzip > dist/zercle-promtpay-qr-services.tar.gz
 
 docker-clean:
 	docker image prune -f

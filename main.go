@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/zercle/gofiber-skelton/config"
-	server "github.com/zercle/gofiber-skelton/internal/infrastructure"
+	"github.com/zercle/promtpay-qr-services/config"
+	server "github.com/zercle/promtpay-qr-services/internal/infrastructure"
 )
 
 var (
@@ -15,6 +15,15 @@ var (
 	runEnv  string
 )
 
+// @title Promptpay QR Services
+// @version 1.0
+// @description This is a sample promtpay QR generator in GO
+// @contact.name Kawin Viriyaprasopsook
+// @contact.email kawin.vir@zercle.tech
+// @license.name MIT License
+// @license.url https://opensource.org/licenses/MIT
+// @host localhost:8080
+// @BasePath /
 func main() {
 	// Running flag
 	if len(os.Getenv("ENV")) != 0 {

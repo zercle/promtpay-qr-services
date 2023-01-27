@@ -1,0 +1,430 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample promtpay QR generator in GO",
+        "title": "Promptpay QR Services",
+        "contact": {
+            "name": "Kawin Viriyaprasopsook",
+            "email": "kawin.vir@zercle.tech"
+        },
+        "license": {
+            "name": "MIT License",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/api/v1/qr/billpayment": {
+            "get": {
+                "parameters": [
+                    {
+                        "type": "number",
+                        "name": "amount",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "invoice",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "merchan_name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qr_type",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref1",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref2",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref3",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "suffix",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tax_id",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponseForm"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "description": "transaction detail",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.QrRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponseForm"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/qr/mypromptqr": {
+            "get": {
+                "parameters": [
+                    {
+                        "type": "number",
+                        "name": "amount",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "invoice",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "merchan_name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qr_type",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref1",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref2",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref3",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "suffix",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tax_id",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponseForm"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "description": "transaction detail",
+                        "name": "post_request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.QrRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponseForm"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/qr/qr30": {
+            "get": {
+                "parameters": [
+                    {
+                        "type": "number",
+                        "name": "amount",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "invoice",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "merchan_name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qr_type",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref1",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref2",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref3",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "suffix",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tax_id",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponseForm"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "description": "transaction detail",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.QrRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponseForm"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/qr/qrcs": {
+            "get": {
+                "parameters": [
+                    {
+                        "type": "number",
+                        "name": "amount",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "invoice",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "merchan_name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qr_type",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref1",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref2",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "ref3",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "suffix",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tax_id",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponseForm"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "description": "transaction detail",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.QrRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/helpers.ResponseForm"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "helpers.ResponseError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "source": {},
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "helpers.ResponseForm": {
+            "type": "object",
+            "properties": {
+                "errors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/helpers.ResponseError"
+                    }
+                },
+                "messages": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "result": {},
+                "result_info": {
+                    "$ref": "#/definitions/helpers.ResultInfo"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "helpers.ResultInfo": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "per_page": {
+                    "type": "integer"
+                },
+                "total_count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.QrRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "invoice": {
+                    "type": "string"
+                },
+                "merchan_name": {
+                    "type": "string"
+                },
+                "qr_type": {
+                    "type": "string"
+                },
+                "ref1": {
+                    "type": "string"
+                },
+                "ref2": {
+                    "type": "string"
+                },
+                "ref3": {
+                    "type": "string"
+                },
+                "suffix": {
+                    "type": "string"
+                },
+                "tax_id": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,265 @@
+basePath: /
+definitions:
+  helpers.ResponseError:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      source: {}
+      title:
+        type: string
+    type: object
+  helpers.ResponseForm:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/helpers.ResponseError'
+        type: array
+      messages:
+        items:
+          type: string
+        type: array
+      result: {}
+      result_info:
+        $ref: '#/definitions/helpers.ResultInfo'
+      success:
+        type: boolean
+    type: object
+  helpers.ResultInfo:
+    properties:
+      count:
+        type: integer
+      page:
+        type: integer
+      per_page:
+        type: integer
+      total_count:
+        type: integer
+    type: object
+  models.QrRequest:
+    properties:
+      amount:
+        type: number
+      invoice:
+        type: string
+      merchan_name:
+        type: string
+      qr_type:
+        type: string
+      ref1:
+        type: string
+      ref2:
+        type: string
+      ref3:
+        type: string
+      suffix:
+        type: string
+      tax_id:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: kawin.vir@zercle.tech
+    name: Kawin Viriyaprasopsook
+  description: This is a sample promtpay QR generator in GO
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  title: Promptpay QR Services
+  version: "1.0"
+paths:
+  /api/v1/qr/billpayment:
+    get:
+      parameters:
+      - in: formData
+        name: amount
+        type: number
+      - in: formData
+        name: invoice
+        type: string
+      - in: formData
+        name: merchan_name
+        type: string
+      - in: formData
+        name: qr_type
+        type: string
+      - in: formData
+        name: ref1
+        type: string
+      - in: formData
+        name: ref2
+        type: string
+      - in: formData
+        name: ref3
+        type: string
+      - in: formData
+        name: suffix
+        type: string
+      - in: formData
+        name: tax_id
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.ResponseForm'
+    post:
+      parameters:
+      - description: transaction detail
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.QrRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.ResponseForm'
+  /api/v1/qr/mypromptqr:
+    get:
+      parameters:
+      - in: formData
+        name: amount
+        type: number
+      - in: formData
+        name: invoice
+        type: string
+      - in: formData
+        name: merchan_name
+        type: string
+      - in: formData
+        name: qr_type
+        type: string
+      - in: formData
+        name: ref1
+        type: string
+      - in: formData
+        name: ref2
+        type: string
+      - in: formData
+        name: ref3
+        type: string
+      - in: formData
+        name: suffix
+        type: string
+      - in: formData
+        name: tax_id
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.ResponseForm'
+    post:
+      parameters:
+      - description: transaction detail
+        in: body
+        name: post_request
+        required: true
+        schema:
+          $ref: '#/definitions/models.QrRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.ResponseForm'
+  /api/v1/qr/qr30:
+    get:
+      parameters:
+      - in: formData
+        name: amount
+        type: number
+      - in: formData
+        name: invoice
+        type: string
+      - in: formData
+        name: merchan_name
+        type: string
+      - in: formData
+        name: qr_type
+        type: string
+      - in: formData
+        name: ref1
+        type: string
+      - in: formData
+        name: ref2
+        type: string
+      - in: formData
+        name: ref3
+        type: string
+      - in: formData
+        name: suffix
+        type: string
+      - in: formData
+        name: tax_id
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.ResponseForm'
+    post:
+      parameters:
+      - description: transaction detail
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.QrRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.ResponseForm'
+  /api/v1/qr/qrcs:
+    get:
+      parameters:
+      - in: formData
+        name: amount
+        type: number
+      - in: formData
+        name: invoice
+        type: string
+      - in: formData
+        name: merchan_name
+        type: string
+      - in: formData
+        name: qr_type
+        type: string
+      - in: formData
+        name: ref1
+        type: string
+      - in: formData
+        name: ref2
+        type: string
+      - in: formData
+        name: ref3
+        type: string
+      - in: formData
+        name: suffix
+        type: string
+      - in: formData
+        name: tax_id
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.ResponseForm'
+    post:
+      parameters:
+      - description: transaction detail
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.QrRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.ResponseForm'
+swagger: "2.0"

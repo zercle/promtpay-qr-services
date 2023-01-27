@@ -12,12 +12,8 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/segmentio/encoding/json"
 	"github.com/spf13/viper"
-	"github.com/zercle/gofiber-skelton/internal/datasources"
-	"github.com/zercle/gofiber-skelton/pkg/models"
-	"github.com/zercle/gofiber-skelton/pkg/utils"
 )
 
 type Server struct {
@@ -25,7 +21,6 @@ type Server struct {
 	Version string
 	Build   string
 	RunEnv  string
-	models.Resources
 }
 
 func NewServer(version, buildTag, runEnv string) (server *Server, err error) {
@@ -35,37 +30,6 @@ func NewServer(version, buildTag, runEnv string) (server *Server, err error) {
 		Version: version,
 		Build:   buildTag,
 		RunEnv:  runEnv,
-	}
-
-	// connect to DB
-	mainDbConn, err := connectToSqLite()
-	if err != nil {
-		return
-	}
-
-	// server.RedisStorage, err = connectToRedis()
-	// if err != nil {
-	// 	return
-	// }
-
-	fastHttpClient := datasources.InitFastHttpClient(true)
-
-	// utils.JsonParserPool = new(fastjson.ParserPool)
-
-	jwtResources, err := InitJwt(viper.GetString("jwt.private"), viper.GetString("jwt.public"))
-	if err != nil {
-		return
-	}
-
-	// init app resources
-	server.Resources = InitResources(fastHttpClient, mainDbConn, nil, nil, jwtResources)
-
-	// something that use resources place here
-
-	// pre config server
-	err = server.configApp()
-	if err != nil {
-		return
 	}
 
 	return
@@ -83,7 +47,7 @@ func (s *Server) Run() (err error) {
 	})
 
 	// Logger middleware for Fiber that logs HTTP request/response details.
-	app.Use(logger.New(s.LogConfig))
+	app.Use(logger.New())
 
 	// Recover middleware for Fiber that recovers from panics anywhere in the stack chain and handles the control to the centralized ErrorHandler.
 	app.Use(recover.New(recover.Config{EnableStackTrace: !s.PrdMode}))
@@ -102,15 +66,8 @@ func (s *Server) Run() (err error) {
 	// Listen from a different goroutine
 
 	// Listen HTTP
-	// go func() {
-	// 	if err := app.Listen(":" + viper.GetString("app.port.http")); err != nil {
-	// 		log.Panic(err)
-	// 	}
-	// }()
-
-	// Listen HTTPS
 	go func() {
-		if err := app.ListenTLS(":"+viper.GetString("app.port.https"), viper.GetString("app.path.cert"), viper.GetString("app.path.priv")); err != nil {
+		if err := app.Listen(":" + viper.GetString("app.port.http")); err != nil {
 			log.Panic(err)
 		}
 	}()
@@ -127,41 +84,6 @@ func (s *Server) Run() (err error) {
 
 	fmt.Println("Running cleanup tasks...")
 	// Your cleanup tasks go here
-	if s.RedisStorage != nil {
-		s.RedisStorage.Close()
-	}
 	fmt.Println("Successful shutdown.")
-	return
-}
-
-func (s *Server) configApp() (err error) {
-	if s.PrdMode {
-		s.SessConfig = session.Config{
-			Expiration:     8 * time.Hour,
-			KeyLookup:      fmt.Sprintf("%s:%s", "cookie", viper.GetString("app.name")),
-			CookieSecure:   true,
-			CookieHTTPOnly: true,
-		}
-		logFileWriter := &utils.LogFileWriter{LogPath: "./log/gofiber-skelton", PrintConsole: true}
-		s.LogConfig = logger.Config{
-			Format:     "[${blue}${time}${reset}] ${status} - ${ip},${ips} ${method} ${host} ${url}\tUserAgent:	${ua}\tReferer: ${referer}\tAuthorization: ${header:Authorization}\tBytesReceived: ${bytesReceived}\tBytesSent: ${bytesSent}\tError: ${red}${error}${reset}\n",
-			TimeFormat: "2006-01-02 15:04:05",
-			Output:     logFileWriter,
-		}
-	} else {
-		s.SessConfig = session.ConfigDefault
-		s.LogConfig = logger.Config{
-			Format:     "[${blue}${time}${reset}] ${status} - ${ip},${ips} ${method} ${host} ${url}\nUserAgent:\t${ua}\nReferer:\t${referer}\nAuthorization:\t${header:Authorization}\nBytesReceived:\t${bytesReceived}\nBytesSent:\t${bytesSent}\nError:\t${red}${error}${reset}\n",
-			TimeFormat: "2006-01-02 15:04:05",
-		}
-	}
-
-	// Use redis for session store if available
-	if s.RedisStorage != nil {
-		s.SessConfig.Storage = s.RedisStorage
-	}
-
-	utils.SessStore = session.New(s.SessConfig)
-
 	return
 }
