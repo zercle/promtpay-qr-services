@@ -6,9 +6,12 @@ import (
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/swagger"
 	helpers "github.com/zercle/gofiber-helpers"
 	"github.com/zercle/promtpay-qr-services/pkg/domain"
 	"github.com/zercle/promtpay-qr-services/pkg/models"
+
+	_ "github.com/zercle/promtpay-qr-services/assets/docs"
 )
 
 type QrPaymentHandler struct {
@@ -19,6 +22,8 @@ func NewQrPaymentHandler(appRoute fiber.Router, qrPaymentUsecase domain.QrPaymen
 	handler := &QrPaymentHandler{
 		QrPaymentUsecase: qrPaymentUsecase,
 	}
+
+	appRoute.Get("/", swagger.HandlerDefault)
 
 	appRoute.Get("/billpayment", handler.GetBillpaymentQr())
 	appRoute.Post("/billpayment", handler.PostBillpaymentQr())
