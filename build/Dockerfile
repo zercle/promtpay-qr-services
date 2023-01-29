@@ -47,7 +47,7 @@ COPY --from=builder /usr/src/app/app-dist /app/
 COPY config /app/config
 COPY build/docker/ /app/
 COPY assets /app/assets
-COPY internal/assets /app/internal/assets
+# COPY internal/assets /app/internal/assets
 RUN ln -sf /app/app-dist /usr/local/bin/app && chmod +x /app/docker-entrypoint.sh
 
 EXPOSE 8080 8443
