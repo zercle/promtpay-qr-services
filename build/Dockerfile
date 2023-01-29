@@ -21,7 +21,7 @@ RUN go mod download && go mod verify
 
 # let's build project
 COPY . .
-RUN go build -v -buildvcs=false -ldflags="-X 'main.version=$(git rev-parse --short HEAD)' -X 'main.build=$(date --iso-8601=seconds)'" -o app-dist ./cmd/server
+RUN go build -v -buildvcs=false -ldflags="-X 'main.version=$(git rev-parse --short HEAD)' -X 'main.build=$(date --iso-8601=seconds)'" -o app-dist .
 
 FROM debian:stable-slim
 LABEL maintainer="Kawin Viriyaprasopsook <kawin.vir@zercle.tech>"
