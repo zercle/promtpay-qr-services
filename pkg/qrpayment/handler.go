@@ -23,8 +23,6 @@ func NewQrPaymentHandler(appRoute fiber.Router, qrPaymentUsecase domain.QrPaymen
 		QrPaymentUsecase: qrPaymentUsecase,
 	}
 
-	appRoute.Get("/", swagger.HandlerDefault)
-
 	appRoute.Get("/billpayment", handler.GetBillpaymentQr())
 	appRoute.Post("/billpayment", handler.PostBillpaymentQr())
 
@@ -36,6 +34,8 @@ func NewQrPaymentHandler(appRoute fiber.Router, qrPaymentUsecase domain.QrPaymen
 
 	appRoute.Get("/mypromptqr", handler.GetMyPromptQr())
 	appRoute.Post("/mypromptqr", handler.PostMyPromptQr())
+
+	appRoute.Get("/*", swagger.HandlerDefault)
 }
 
 // Bill Payment QR
