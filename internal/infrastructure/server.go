@@ -44,6 +44,9 @@ func (s *Server) Run() (err error) {
 		// speed up json with segmentio/encoding
 		JSONEncoder: json.Marshal,
 		JSONDecoder: json.Unmarshal,
+		// allow behide reverse proxy
+		EnableTrustedProxyCheck: true,
+		TrustedProxies:          viper.GetStringSlice("app.proxy.allow_ip"),
 	})
 
 	// Logger middleware for Fiber that logs HTTP request/response details.

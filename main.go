@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/zercle/promtpay-qr-services/config"
+	"github.com/zercle/promtpay-qr-services/pkg/config"
 	server "github.com/zercle/promtpay-qr-services/internal/infrastructure"
 )
 
