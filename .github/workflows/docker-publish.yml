@@ -26,6 +26,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./build/Dockerfile
+          file: ./Dockerfile
           push: true
-          tags: zercle/promtpay-qr-services:latest
+          tags: zercle/promtpay-qr-services

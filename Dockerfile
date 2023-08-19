@@ -42,5 +42,5 @@ COPY ./internal/assets /app/internal/assets
 EXPOSE 8080 8443
 
 # default run entrypoint
-ENTRYPOINT ["/usr/bin/dumb-init", "--", "/app/payment_api"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "/app/server"]
 CMD ["--env=prd"]
