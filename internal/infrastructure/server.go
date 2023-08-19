@@ -12,15 +12,15 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/segmentio/encoding/json"
+	"github.com/goccy/go-json"
 	"github.com/spf13/viper"
 )
 
 type Server struct {
-	PrdMode bool
 	Version string
 	Build   string
 	RunEnv  string
+	PrdMode bool
 }
 
 func NewServer(version, buildTag, runEnv string) (server *Server, err error) {

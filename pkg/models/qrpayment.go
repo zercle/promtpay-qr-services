@@ -9,9 +9,9 @@ type QrRequest struct {
 	Ref1         string  `form:"ref1" query:"ref1" json:"ref1" validate:"required" maxLength:"20"`
 	Ref2         string  `form:"ref2" query:"ref2" json:"ref2" validate:"optional" maxLength:"20"`
 	Ref3         string  `form:"ref3" query:"ref3" json:"ref3" validate:"optional" maxLength:"20"`
-	Amount       float64 `form:"amount" query:"amount" json:"amount,omitempty" validate:"required" minimum:"0" maximum:"99999999999.99"`
 	MerchantName string  `form:"merchan_name" query:"merchan_name" json:"merchan_name,omitempty" validate:"optional" maxLength:"20"`
 	Invoice      string  `form:"invoice" query:"invoice" json:"invoice" validate:"optional" maxLength:"20"`
+	Amount       float64 `form:"amount" query:"amount" json:"amount,omitempty" validate:"required" minimum:"0" maximum:"99999999999.99"`
 }
 
 type QrResponse struct {
@@ -21,11 +21,11 @@ type QrResponse struct {
 	Ref1         string  `json:"ref1"`
 	Ref2         string  `json:"ref2"`
 	Ref3         string  `json:"ref3"`
-	Amount       float64 `json:"amount"`
 	MerchantName string  `json:"merchan_name,omitempty"`
 	Invoice      string  `json:"invoice,omitempty"`
 	Data         string  `json:"data"`
 	Image        string  `json:"image"`
+	Amount       float64 `json:"amount"`
 }
 
 func (c *QrResponse) FromReq(req QrRequest) (err error) {

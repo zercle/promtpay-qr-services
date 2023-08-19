@@ -5,8 +5,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/zercle/promtpay-qr-services/pkg/config"
 	server "github.com/zercle/promtpay-qr-services/internal/infrastructure"
+	"github.com/zercle/promtpay-qr-services/pkg/config"
+
+	_ "go.uber.org/automaxprocs"
 )
 
 var (
