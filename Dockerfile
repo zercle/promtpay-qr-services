@@ -37,7 +37,6 @@ COPY --from=builder /usr/bin/dumb-init /usr/bin/dumb-init
 COPY --from=builder /app/dist/server /app/server
 COPY ./configs /app/configs
 COPY ./assets/docs /app/assets/docs
-COPY ./internal/assets /app/internal/assets
 
 EXPOSE 8080 8443
 
